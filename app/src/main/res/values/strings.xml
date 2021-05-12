@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MagicBall</string>
+    <string name="conoce_tu_futuro">Conoce tu futuro!</string>
+    <string name="escribe_tu_mensaje">Escribe tu mensaje</string>
 </resources>
