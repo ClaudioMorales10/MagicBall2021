@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageButton Ball;
     private TextView respuesta;
-    private EditText cuestion;
+    private EditText pregunta;
     private String [] respuestaArray={"Es cierto", "Definitivamente es así",
             "Sin duda", "Sí definitivamente", "Puede confiar en él", "Como yo lo veo, sí", "Lo más probable",
             "Perspectiva buena", "Sí", "Las señales apuntan a sí", "Respuesta confusa intente de nuevo",
@@ -37,8 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //referencia texto
         respuesta=findViewById(R.id.respuestavista);
 
-        //cuestion
-        cuestion = findViewById(R.id.question);
+        //referencia input pregunta
+        pregunta = findViewById(R.id.question);
 
         //proceso
         Ball.setOnClickListener(this);
@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn:
 
                 int rand = new Random().nextInt(respuestaArray.length);
-                if ( cuestion.getText().length() == 0 ){
+                //se valida que pregunta no este vacia
+                if ( pregunta.getText().length() == 0 ){
                     respuesta.setText("...");
                     AlertDialog.Builder mybuilder = new AlertDialog.Builder(this);
                     mybuilder.setMessage("Debe escribir su pregunta");
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     dialog.show();
 
                 }else {
+                    //luego de presionar el boton, se limpia el input
+                    pregunta.setText("");
                     respuesta.setText(respuestaArray[rand]);
                 }
                 break;
