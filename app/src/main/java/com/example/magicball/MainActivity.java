@@ -1,11 +1,17 @@
 package com.example.magicball;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.magicball.R;
 
 import java.util.Random;
 
@@ -13,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageButton Ball;
     private TextView respuesta;
+    private EditText cuestion;
     private String [] respuestaArray={"Es cierto", "Definitivamente es así",
             "Sin duda", "Sí definitivamente", "Puede confiar en él", "Como yo lo veo, sí", "Lo más probable",
             "Perspectiva buena", "Sí", "Las señales apuntan a sí", "Respuesta confusa intente de nuevo",
@@ -30,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //referencia texto
         respuesta=findViewById(R.id.respuestavista);
 
+        //cuestion
+        cuestion = findViewById(R.id.question);
+
         //proceso
         Ball.setOnClickListener(this);
         Toast.makeText(MainActivity.this, "Consulta tu Suerte", Toast.LENGTH_SHORT).show();
@@ -41,7 +51,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn:
 
                 int rand = new Random().nextInt(respuestaArray.length);
-                respuesta.setText(respuestaArray[rand]);
+                if ( cuestion.getText().length() == 0 ){
+                    respuesta.setText("...");
+                    AlertDialog.Builder mybuilder = new AlertDialog.Builder(this);
+                    mybuilder.setMessage("Debe escribir su pregunta");
+                    mybuilder.setTitle("Error");
+                    mybuilder.setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    AlertDialog dialog = mybuilder.create();
+                    dialog.show();
+
+                }else {
+                    respuesta.setText(respuestaArray[rand]);
+                }
                 break;
         }
     }
